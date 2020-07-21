@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from formulas import cosine_similarity, euclidean, get_country
+from formulas import cosine_similarity, euclidean, get_country, get_accuracy
 
 from utils import get_vectors
 
@@ -31,3 +31,7 @@ print('euclidean distance:', euclidean(king, queen))
 # Testing your function, note to make it more robust you can return the 5 most similar words.
 # Expected Output: ('Egypt', 0.7626821)
 print(get_country('Athens', 'Greece', 'Cairo', word_embeddings))
+
+# check the accuracy of the model (Expected Output: ≈ 0.92)
+accuracy = get_accuracy(word_embeddings, data)
+print(f"Accuracy is {accuracy:.2f}")
