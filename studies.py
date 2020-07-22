@@ -1,9 +1,8 @@
-# Run this cell to import packages.
 import pickle
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from formulas import cosine_similarity, euclidean, get_country, get_accuracy
+from formulas import cosine_similarity, euclidean, get_country, get_accuracy, compute_pca
 
 from utils import get_vectors
 
@@ -33,5 +32,28 @@ print('euclidean distance:', euclidean(king, queen))
 print(get_country('Athens', 'Greece', 'Cairo', word_embeddings))
 
 # check the accuracy of the model (Expected Output: ≈ 0.92)
-accuracy = get_accuracy(word_embeddings, data)
-print(f"Accuracy is {accuracy:.2f}")
+# accuracy = get_accuracy(word_embeddings, data)
+# print(f"Accuracy is {accuracy:.2f}")
+
+# PCA check
+np.random.seed(1)
+X = np.random.rand(3, 10)
+X_reduced = compute_pca(X, n_components=2)
+print("Your original matrix was " + str(X.shape) + " and it became:")
+print(X_reduced)
+
+words = ['oil', 'gas', 'happy', 'sad', 'city', 'town',
+         'village', 'country', 'continent', 'petroleum', 'joyful']
+
+# given a list of words and the embeddings, it returns a matrix with all the embeddings
+X = get_vectors(word_embeddings, words)
+
+print('You have 11 words each of 300 dimensions thus X.shape is:', X.shape)
+
+# Plotting PCA result
+result = compute_pca(X, 2)
+plt.scatter(result[:, 0], result[:, 1])
+for i, word in enumerate(words):
+    plt.annotate(word, xy=(result[i, 0] - 0.05, result[i, 1] + 0.1))
+
+plt.show()
